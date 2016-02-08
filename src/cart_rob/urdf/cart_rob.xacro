@@ -1,0 +1,151 @@
+<?xml version="1.0"?>
+<robot name="flexible">
+<link name="link1">
+<visual>
+	<origin xyz="-1 0 0.6"/>  
+      <geometry>
+       <box size="0.2 0.2 0.1"/> 
+      </geometry>
+    </visual>
+   
+<visual>
+	<origin xyz="0 0 0.3"/>  
+      <geometry>
+       <box size="2.2 0.2 0.6"/> 
+      </geometry>
+    </visual>
+ <visual>
+	<origin xyz="1 0 0.6"/>  
+      <geometry>
+       <box size="0.2 0.2 0.1"/> 
+      </geometry>
+    </visual>
+  </link>
+ 
+<joint name="joint1" type="prismatic">
+    <parent link="link2"/>
+    <child link="link1"/>
+    <limit effort="1000.0" lower="-0.63" upper="1.06" velocity="0.2"/>
+    <origin rpy="0 0 1.57075" xyz="0 0 1"/>
+ </joint> 
+
+ <link name="link2">
+   
+ <visual>
+	<origin xyz="0.9 0.2 1.6"/>      
+	<geometry>
+		<box size="2.2 0.1 0.16"/> 
+    </geometry>
+    <material name="blue">
+        <color rgba="0 0 .8 1"/>
+    </material>
+    </visual>
+  </link>
+ 
+
+<joint name="joint2" type="prismatic">
+    <parent link="link2"/>
+    <child link="link3"/>
+    <limit effort="1000.0" lower="-0.2" upper="0.8" velocity="0.2"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+ </joint> 
+
+ <link name="link3">
+    <visual>
+	<origin xyz="1 0.1 1.5"/>      
+	<geometry>
+		<box size="0.2 0.1 0.8"/> 
+    </geometry>
+    <material name="blue">
+        <color rgba="0 0 .8 1"/>
+    </material>
+    </visual>
+  </link>
+ 
+<joint name="grip_joint" type="revolute">
+    <parent link="link3"/>
+    <child link="gripper_pole"/>
+    <limit effort="1000.0" lower="0" upper="1.6" velocity="0.2"/>
+    <origin rpy="0 0 0" xyz="1.2 0.1 1.15"/>
+ </joint> 
+
+
+  <link name="gripper_pole">
+    <visual>
+      <geometry>
+        <cylinder length="0.2" radius=".03"/>
+      </geometry>
+      <origin rpy="0 1.57075 0 " xyz="0 0 0"/>
+      <material name="Gray">
+        <color rgba=".7 .7 .7 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <joint name="left_gripper_joint" type="revolute">
+    <axis xyz="0 0 1"/>
+    <limit effort="1000.0" lower="0.0" upper="0.548" velocity="0.2"/>
+    <origin rpy="0 0 0" xyz="0.13 0 0"/>
+    <parent link="gripper_pole"/>
+    <child link="left_gripper"/>
+  </joint>
+
+  <link name="left_gripper">
+    <visual>
+      <origin rpy="0.0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://pr2_description/meshes/gripper_v0/l_finger.dae"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="left_tip_joint" type="fixed">
+    <parent link="left_gripper"/>
+    <child link="left_tip"/>
+  </joint>
+
+  <link name="left_tip">
+    <visual>
+      <origin rpy="0.0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://pr2_description/meshes/gripper_v0/l_finger_tip.dae"/>
+      </geometry>
+    </visual>
+  </link>
+---
+  <joint name="right_gripper_joint" type="revolute">
+    <axis xyz="0 0 -1"/>
+    <limit effort="1000.0" lower="0.0" upper="0.548" velocity="0.2"/>
+    <origin rpy="0 0 0" xyz="0.13 0 0"/>
+    <parent link="gripper_pole"/>
+    <child link="right_gripper"/>
+  </joint>
+
+  <link name="right_gripper">
+    <visual>
+      <origin rpy="-3.1415 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://pr2_description/meshes/gripper_v0/l_finger.dae"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="right_tip_joint" type="fixed">
+    <parent link="right_gripper"/>
+    <child link="right_tip"/>
+  </joint>
+
+  <link name="right_tip">
+    <visual>
+      <origin rpy="-3.1415 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://pr2_description/meshes/gripper_v0/l_finger_tip.dae"/>
+      </geometry>
+    </visual>
+  </link>
+
+
+
+
+
+</robot>
